@@ -1,2 +1,4 @@
-# iBox
-A small multipurpose Modal library for JavaScript
+### **iBox**
+##### a small multipurpose Modal Library for displaying dynamic content
+
+# NOT WORKING
