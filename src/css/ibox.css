@@ -10,9 +10,9 @@ div.ibox.frame {
   padding-top: 6%;
   padding-bottom: 6%;
   -webkit-animation: show-ibox 1s ease-in-out both;
-  -moz-animation: show-ibox 1s infinite;
-  -o-animation: show-ibox 1s infinite;
-  animation: show-ibox 1s infinite;
+  -moz-animation: show-ibox 1s ease-in-out both;
+  -o-animation: show-ibox 1s ease-in-out both;
+  animation: show-ibox 1s ease-in-out both;
 }
 
 @-webkit-keyframes show-ibox {
@@ -88,6 +88,16 @@ div.ibox.loader {
   -webkit-transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   width: 98px;
+}
+
+div.ibox.loader span::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  position: absolute;
+  background: url('https://icons8.com/preloaders/generator.php?filmstrip&image=91&speed=9&fore_color=000000&back_color=FFFFFF&size=96x96&transparency=1&reverse=0&orig_colors=1&gray_transp=1&image_type=2&inverse=0&flip=0&frames_amount=20&word=237-261-157-41-266-237-41-257-237-266-57-41-227-41-36-36-36&uncacher=34.69367976912007') center center no-repeat;
 }
 
 div.ibox.content {
