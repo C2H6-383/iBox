@@ -9,17 +9,22 @@
   </head>
   <body>
     <div id="asd"></div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <script>
       var dings = new ibox({active:false});
       dings.open();
       dings.loader_show();
       dings.loader_hide();
       dings.content_set('<h1 onclick="'+dings.closeLink()+'">ads</h1>');
-      for(var i=0;i<5;i++) {
+      for(var i=0;i<120;i++) {
         dings.content_append('<h1 onclick="'+dings.closeLink()+'">ads'+i+'</h1>');
       }
-      alert(dings.getId());
-      dings.close();
+      //alert(dings.getId());
+      //dings.close();
     </script>
   </body>
 </html>

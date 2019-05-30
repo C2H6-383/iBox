@@ -10,9 +10,11 @@ class ibox {
     $("body").append(
       '<div class="ibox frame ' +
         this.object_name +
-        '" style="display:none"><span class="ibox close ' +
+        '" style="display:none"><div style="display:none;" class="ibox scrollHandler ' +
         this.object_name +
-        ' " onclick="ibox.close(\'' +
+        '" data-toTop=""></div><span class="ibox close ' +
+        this.object_name +
+        ' " onclick="ibox.closeIt(\'' +
         this.object_name +
         '\')">&times;</span><div class="ibox loader ' +
         this.object_name +
@@ -20,7 +22,7 @@ class ibox {
         '<div class="ibox spinner"></div>' +
         '</div><div class="ibox content ' +
         this.object_name +
-        '"></div></div>'
+        '"></div><div style="clear:both; width:0;height:0;"></div></div>'
     );
 
     if (ibox.isset(options.active) && options.active) {
@@ -35,6 +37,7 @@ class ibox {
 
   //closes theiBox selected by object name
   static closeIt(ibox_id) {
+    ibox.scrollHandler(ibox_id, false);
     $("div.ibox.frame." + ibox_id).hide();
   }
 
@@ -44,16 +47,18 @@ class ibox {
 
   //returns a function for an onclick event that closes the iBox
   closeLink() {
-    return "ibox.closeIt('"+this.object_name+"')";
+    return "ibox.closeIt('" + this.object_name + "')";
   }
 
   //closes the iBox
   close() {
+    ibox.scrollHandler(this.getId(), false);
     $("div.ibox.frame." + this.object_name).hide();
   }
 
   //shows theiBox
   open() {
+    ibox.scrollHandler(this.getId(), true);
     $("div.ibox.frame." + this.object_name).show();
   }
 
@@ -79,7 +84,7 @@ class ibox {
 
   //clears the content
   content_clear() {
-    $("div.ibox.content." + this.object_name).html('');
+    $("div.ibox.content." + this.object_name).html("");
   }
 
   //returns the content
@@ -94,15 +99,31 @@ class ibox {
     } else {
       return false;
     }
-  };
+  }
 
   static randomString(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
- }
+  }
+
+  //Handles the Scrollbar Visibility for Opening and Closing the iBox
+  static scrollHandler(id, state) {
+    if (state) {
+      document.querySelector("div.ibox.scrollHandler." + id).dataset.toTop = $(
+        window
+      ).scrollTop();
+      $("body").css("overflow-y", "hidden");
+    } else {
+      $("body").css("overflow-y", "initial");
+      $(window).scrollTop(
+        document.querySelector("div.ibox.scrollHandler." + id).dataset.toTop
+      );
+    }
+  }
 }
