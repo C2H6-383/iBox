@@ -9,20 +9,10 @@ div.ibox.frame {
   overflow-y: scroll;
   padding-top: 6%;
   padding-bottom: 6%;
-}
-
-div.ibox.frame.opening {
   -webkit-animation: show-ibox 1s ease-in-out both;
   -moz-animation: show-ibox 1s ease-in-out both;
   -o-animation: show-ibox 1s ease-in-out both;
   animation: show-ibox 1s ease-in-out both;
-}
-
-div.ibox.frame.closing {
-  -webkit-animation: hide-ibox 1s ease-in-out both;
-  -moz-animation: hide-ibox 1s ease-in-out both;
-  -o-animation: hide-ibox 1s ease-in-out both;
-  animation: hide-ibox 1s ease-in-out both;
 }
 
 @-webkit-keyframes show-ibox {
@@ -55,39 +45,6 @@ div.ibox.frame.closing {
   }
   100% {
     opacity: 1;
-  }
-}
-
-@-webkit-keyframes hide-ibox {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@-moz-keyframes hide-ibox {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@-o-keyframes hide-ibox {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes hide-ibox {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }
 
@@ -130,17 +87,6 @@ div.ibox.loader {
   width: 98px;
 }
 
-div.ibox.loader span::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  background: url("https://icons8.com/preloaders/generator.php?filmstrip&image=91&speed=9&fore_color=000000&back_color=FFFFFF&size=96x96&transparency=1&reverse=0&orig_colors=1&gray_transp=1&image_type=2&inverse=0&flip=0&frames_amount=20&word=237-261-157-41-266-237-41-257-237-266-57-41-227-41-36-36-36&uncacher=34.69367976912007")
-    center center no-repeat;
-}
-
 div.ibox.content {
   display: block;
   z-index: 5001;
@@ -160,4 +106,47 @@ div.ibox.content {
   div.ibox.content {
     padding: 20px !important;
   }
+}
+
+div.ibox.loader {
+	width: 100%;
+	height: 94px;
+	text-align: center;
+}
+
+div.ibox.loader div.ibox.spinner {
+	width: 94px;
+	height: 94px;
+	margin: 0 auto;
+	border: 6px solid rgb(0,0,0);
+	border-radius: 50%;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	animation: loader-spin 575ms infinite linear;
+		-o-animation: loader-spin 575ms infinite linear;
+		-ms-animation: loader-spin 575ms infinite linear;
+		-webkit-animation: loader-spin 575ms infinite linear;
+		-moz-animation: loader-spin 575ms infinite linear;
+}
+
+
+
+@keyframes loader-spin {
+	100%{ transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-o-keyframes loader-spin {
+	100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-ms-keyframes loader-spin {
+	100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-webkit-keyframes loader-spin {
+	100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-moz-keyframes loader-spin {
+	100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
 }
