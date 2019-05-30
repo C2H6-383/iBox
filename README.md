@@ -16,7 +16,7 @@ var YourObjectName = new ibox();
 ```
 7. You are ready to go...
 
-## Object Creation Parameter
+## Object Creation Parameters
 The following lines are showing, what you can do when you are creating your ibox object.
 
 1. pass an object with options:
