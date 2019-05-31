@@ -13,6 +13,7 @@ div.ibox.frame {
   -moz-animation: show-ibox 1s ease-in-out both;
   -o-animation: show-ibox 1s ease-in-out both;
   animation: show-ibox 1s ease-in-out both;
+  box-sizing: content-box !important;
 }
 
 @-webkit-keyframes show-ibox {
@@ -59,7 +60,8 @@ span.ibox.close {
   position: fixed;
   text-align: center;
   line-height: 40px;
-  font-size: 60px;
+  font-size: 60px !important;
+  font-family: 'Times New Roman', Times, serif !important;
 }
 
 @media screen and (max-width: 1550px) {
@@ -85,7 +87,7 @@ div.ibox.loader {
   -webkit-transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   width: 98px;
-  font-family: 'Times New Roman', Times, serif
+  
 }
 
 div.ibox.content {

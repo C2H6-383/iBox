@@ -1,6 +1,7 @@
 class ibox {
     //Creates the DOM structure for the iBox, all IDs and names prefixed by the given obj_name, use options for optional things
     constructor(options = {}) {
+        
         if (!ibox.isset(jQuery)) {
             throw "jQuery is required to run iBox!";
         }
@@ -119,8 +120,10 @@ class ibox {
         if (state) {
             $("div.ibox.scrollHandler." + id).data("toTop", $(window).scrollTop());
             $("body").css("overflow-y", "hidden");
+            $("html").css("overflow-y", "hidden");
         } else {
             $("body").css("overflow-y", "initial");
+            $("html").css("overflow-y", "initial");
             $(window).scrollTop(
                     $("div.ibox.scrollHandler." + id).data("toTop")
                     );

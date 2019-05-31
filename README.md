@@ -9,7 +9,7 @@
 2. Extract the archive
 3. Copy the *ibox.css* and *ibox.js* files from the *src* folder into your website
 4. Include it in the header of your site
-5. Open a script tag at the bottom of your site
+5. Open a script tag **in the body** your site
 6. Create a iBox object as following:
 ```javascript
 var YourObjectName = new ibox();
