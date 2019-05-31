@@ -1,11 +1,11 @@
 div.ibox.frame {
-  height: 100%;
   z-index: 5000;
-  width: 100%;
   background: rgba(35, 35, 35, 0.6);
   position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   overflow-y: scroll;
   padding-top: 6%;
   padding-bottom: 6%;
@@ -61,7 +61,7 @@ span.ibox.close {
   text-align: center;
   line-height: 40px;
   font-size: 60px !important;
-  font-family: 'Times New Roman', Times, serif !important;
+  font-family: "Times New Roman", Times, serif !important;
 }
 
 @media screen and (max-width: 1550px) {
@@ -69,7 +69,6 @@ span.ibox.close {
     background: rgba(184, 184, 184, 0.63) !important;
   }
 }
-
 
 span.ibox.close:hover {
   background: #adadad;
@@ -87,7 +86,6 @@ div.ibox.loader {
   -webkit-transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   width: 98px;
-  
 }
 
 div.ibox.content {
@@ -95,8 +93,8 @@ div.ibox.content {
   z-index: 5001;
   max-width: 1100px;
   background: #fff;
-  margin: 0 auto !important;
-  min-height: 100%;
+  margin: 0 auto 6% auto !important;
+  min-height: 80%;
   padding: 20px 150px;
   border-radius: 6px;
 }
@@ -112,44 +110,57 @@ div.ibox.content {
 }
 
 div.ibox.loader {
-	width: 100%;
-	height: 94px;
-	text-align: center;
+  width: 100%;
+  height: 94px;
+  text-align: center;
 }
 
 div.ibox.loader div.ibox.spinner {
-	width: 94px;
-	height: 94px;
-	margin: 0 auto;
-	border: 6px solid rgb(0,0,0);
-	border-radius: 50%;
-	border-left-color: transparent;
-	border-right-color: transparent;
-	animation: loader-spin 575ms infinite linear;
-		-o-animation: loader-spin 575ms infinite linear;
-		-ms-animation: loader-spin 575ms infinite linear;
-		-webkit-animation: loader-spin 575ms infinite linear;
-		-moz-animation: loader-spin 575ms infinite linear;
+  width: 94px;
+  height: 94px;
+  margin: 0 auto;
+  border: 6px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: loader-spin 575ms infinite linear;
+  -o-animation: loader-spin 575ms infinite linear;
+  -ms-animation: loader-spin 575ms infinite linear;
+  -webkit-animation: loader-spin 575ms infinite linear;
+  -moz-animation: loader-spin 575ms infinite linear;
 }
 
-
-
 @keyframes loader-spin {
-	100%{ transform: rotate(360deg); transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @-o-keyframes loader-spin {
-	100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }
+  100% {
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @-ms-keyframes loader-spin {
-	100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }
+  100% {
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @-webkit-keyframes loader-spin {
-	100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 
 @-moz-keyframes loader-spin {
-	100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
