@@ -9,10 +9,10 @@ div.ibox.frame {
   overflow-y: scroll;
   padding-top: 6%;
   padding-bottom: 6%;
-  -webkit-animation: show-ibox 1s ease-in-out both;
-  -moz-animation: show-ibox 1s ease-in-out both;
-  -o-animation: show-ibox 1s ease-in-out both;
-  animation: show-ibox 1s ease-in-out both;
+  -webkit-animation: show-ibox 0.5s ease-in-out both;
+  -moz-animation: show-ibox 0.5s ease-in-out both;
+  -o-animation: show-ibox 0.5s ease-in-out both;
+  animation: show-ibox 0.5s ease-in-out both;
   box-sizing: content-box !important;
 }
 
@@ -97,6 +97,7 @@ div.ibox.content {
   min-height: 80%;
   padding: 20px 150px;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 1150px) {

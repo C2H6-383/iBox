@@ -1,132 +1,140 @@
 class ibox {
-    //Creates the DOM structure for the iBox, all IDs and names prefixed by the given obj_name, use options for optional things
-    constructor(options = {}) {
-        
-        if (!ibox.isset(jQuery)) {
-            throw "jQuery is required to run iBox!";
-        }
-
-        this.object_name = ibox.randomString(10);
-
-        $("body").append(
-                '<div class="ibox frame ' +
-                this.object_name +
-                '" style="display:none"><div style="display:none;" class="ibox scrollHandler ' +
-                this.object_name +
-                '" data-toTop=""></div><span class="ibox close ' +
-                this.object_name +
-                ' " onclick="ibox.closeIt(\'' +
-                this.object_name +
-                '\')">&times;</span><div class="ibox loader ' +
-                this.object_name +
-                '">' +
-                '<div class="ibox spinner"></div>' +
-                '</div><div class="ibox content ' +
-                this.object_name +
-                '"></div><div style="clear:both; width:0;height:0;"></div></div>'
-                );
-
-        if (ibox.isset(options.active) && options.active) {
-            this.open();
-        }
-
-        if (ibox.isset(options.content)) {
-            this.loader_hide();
-            this.display_content(options.content);
-    }
+  //Creates the DOM structure for the iBox, all IDs and names prefixed by the given obj_name, use options for optional things
+  constructor(options = {}) {
+    if (!ibox.isset(jQuery)) {
+      throw "jQuery is required to run iBox!";
     }
 
-    //closes theiBox selected by iBox ID
-    static closeIt(ibox_id) {
-        ibox.scrollHandler(ibox_id, false);
-        $("div.ibox.frame." + ibox_id).hide();
+    this.object_name = ibox.randomString(10);
+
+    $("body").append(
+      '<div class="ibox frame ' +
+        this.object_name +
+        '" style="display:none"><div style="display:none;" class="ibox scrollHandler ' +
+        this.object_name +
+        '" data-toTop=""></div><span class="ibox close ' +
+        this.object_name +
+        ' " onclick="ibox.closeIt(\'' +
+        this.object_name +
+        '\')">&times;</span><div class="ibox loader ' +
+        this.object_name +
+        '">' +
+        '<div class="ibox spinner"></div>' +
+        '</div><div class="ibox content ' +
+        this.object_name +
+        '"></div><div style="clear:both; width:0;height:0;"></div></div>'
+    );
+
+    window.onclick = function(event) {
+      // wird ausgeführt wenn der nutzer irgendwohin klickt
+      var e = event.target; //liest aus, worauf der nutzer geklickt hat
+
+      if (e === $("div.ibox.frame." + this.object_name) && opened.chronik) {
+        //wenn chronik offen und user hat auf hintergrund der chronik-ibox geklickt, dann geht die ibox zu
+        chronik_modal("close");
+      }
+    };
+
+    if (ibox.isset(options.active) && options.active) {
+      this.open();
     }
 
-    //gets the iBox ID
-    getId() {
-        return this.object_name;
+    if (ibox.isset(options.content)) {
+      this.loader_hide();
+      this.display_content(options.content);
     }
+  }
 
-    //returns a function for an onclick event that closes the iBox
-    closeLink() {
-        return "ibox.closeIt('" + this.object_name + "')";
-    }
+  //closes theiBox selected by iBox ID
+  static closeIt(ibox_id) {
+    ibox.scrollHandler(ibox_id, false);
+    $("div.ibox.frame." + ibox_id).hide();
+  }
 
-    //closes the iBox
-    close() {
-        ibox.scrollHandler(this.getId(), false);
-        $("div.ibox.frame." + this.object_name).hide();
-    }
+  //gets the iBox ID
+  getId() {
+    return this.object_name;
+  }
 
-    //shows theiBox
-    open() {
-        ibox.scrollHandler(this.getId(), true);
-        $("div.ibox.frame." + this.object_name).show();
-    }
+  //returns a function for an onclick event that closes the iBox
+  closeLink() {
+    return "ibox.closeIt('" + this.object_name + "')";
+  }
 
-    //shows the loading bar
-    loader_show() {
-        $("div.ibox.loader." + this.object_name).show();
-    }
+  //closes the iBox
+  close() {
+    ibox.scrollHandler(this.getId(), false);
+    $("div.ibox.frame." + this.object_name).hide();
+  }
 
-    //hides the loading bar
-    loader_hide() {
-        $("div.ibox.loader." + this.object_name).hide();
-    }
+  //shows theiBox
+  open() {
+    this.isOpen = true;
+    ibox.scrollHandler(this.getId(), true);
+    $("div.ibox.frame." + this.object_name).show();
+  }
 
-    //sets the iBox content
-    content_set(content) {
-        $("div.ibox.content." + this.object_name).html(content);
-    }
+  //shows the loading bar
+  loader_show() {
+    $("div.ibox.loader." + this.object_name).show();
+  }
 
-    //appends to the iBox content
-    content_append(content) {
-        $("div.ibox.content." + this.object_name).append(content);
-    }
+  //hides the loading bar
+  loader_hide() {
+    $("div.ibox.loader." + this.object_name).hide();
+  }
 
-    //clears the content
-    content_clear() {
-        $("div.ibox.content." + this.object_name).html("");
-    }
+  //sets the iBox content
+  content_set(content) {
+    $("div.ibox.content." + this.object_name).html(content);
+  }
 
-    //returns the content
-    content_get() {
-        return $("div.ibox.content." + this.object_name).html();
-    }
+  //appends to the iBox content
+  content_append(content) {
+    $("div.ibox.content." + this.object_name).append(content);
+  }
 
-    //checks if variable or object parameter exists, like in php
-    static isset(x) {
-        if (typeof x !== "undefined") {
-            return true;
-        } else {
-            return false;
-        }
-    }
+  //clears the content
+  content_clear() {
+    $("div.ibox.content." + this.object_name).html("");
+  }
 
-    //creates a random String with given length
-    static randomString(length) {
-        var result = "";
-        var characters =
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
-    }
+  //returns the content
+  content_get() {
+    return $("div.ibox.content." + this.object_name).html();
+  }
 
-    //Handles the Scrollbar Visibility for Opening and Closing the iBox
-    static scrollHandler(id, state) {
-        if (state) {
-            $("div.ibox.scrollHandler." + id).data("toTop", $(window).scrollTop());
-            $("body").css("overflow-y", "hidden");
-            $("html").css("overflow-y", "hidden");
-        } else {
-            $("body").css("overflow-y", "initial");
-            $("html").css("overflow-y", "initial");
-            $(window).scrollTop(
-                    $("div.ibox.scrollHandler." + id).data("toTop")
-                    );
-        }
+  //checks if variable or object parameter exists, like in php
+  static isset(x) {
+    if (typeof x !== "undefined") {
+      return true;
+    } else {
+      return false;
     }
+  }
+
+  //creates a random String with given length
+  static randomString(length) {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  //Handles the Scrollbar Visibility for Opening and Closing the iBox
+  static scrollHandler(id, state) {
+    if (state) {
+      $("div.ibox.scrollHandler." + id).data("toTop", $(window).scrollTop());
+      $("body").css("overflow-y", "hidden");
+      $("html").css("overflow-y", "hidden");
+    } else {
+      $("body").css("overflow-y", "initial");
+      $("html").css("overflow-y", "initial");
+      $(window).scrollTop($("div.ibox.scrollHandler." + id).data("toTop"));
+    }
+  }
 }
