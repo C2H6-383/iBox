@@ -26,7 +26,7 @@ The following lines are showing, what you can do when you are creating your ibox
 You can pass the object like this:
 ```javascript
 var YourObjectName=new ibox({
-	active: true;
+	active: true,
 	content: "some content"
 });
 ```
@@ -49,13 +49,19 @@ The following functions could be used with the ibox object:
 - **content_append(content)** - appends to the iBox content
 - **content_get()** - returns the iBox content
 - **content_clear()** - clears the iBox content
+- **content_show()** - shows the content and hides the loader
+- **content_hide()** - hides the content and shows the loader
 ##### Other *static* Utility Functions
 - **isset(var)** - checks if a variable or object value exists (like in PHP)
 - **randomString(length)** - returns a random string with given length
 - **closeIt(ibox_id)** - closes an iBox with given ID (without having the created object)
+- **closeEvent(event, ibox_id)** - checks if the background frame of the ibox with given id was clicked and if so, it closes the ibox with given id. (attached to the frame of the ibox)
 
 ------------
 
 ## Release notes
 **1.0**
 - added general functions like open, close, set content...
+
+**1.1**
+- fixed some errors and added content_hide() and content_show functions...
