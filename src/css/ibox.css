@@ -14,6 +14,7 @@ div.ibox.frame {
   -o-animation: show-ibox 0.5s ease-in-out both;
   animation: show-ibox 0.5s ease-in-out both;
   box-sizing: content-box !important;
+  color:#000;
 }
 
 @-webkit-keyframes show-ibox {
@@ -62,6 +63,7 @@ span.ibox.close {
   line-height: 40px;
   font-size: 60px !important;
   font-family: "Times New Roman", Times, serif !important;
+  color:#000;
 }
 
 @media screen and (max-width: 1550px) {
@@ -98,6 +100,7 @@ div.ibox.content {
   padding: 20px 150px;
   border-radius: 6px;
   box-sizing: border-box;
+  color:#000 !important;
 }
 
 @media screen and (max-width: 1150px) {

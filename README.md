@@ -41,6 +41,7 @@ The following functions could be used with the ibox object:
 - **open()** - shows the iBox
 - **close()** -  close the iBox
 - **closeLink()** - returns a function for an HTML onclick event that closes the iBox (for buttons or links in the iBox)
+- **remove()** - removes the dom structure of the ibox from the document
 ##### Loading Animation Functions
 - **loader_show()** - shows the loading animation 
 - **loader_hide()** - hides the loading animation
@@ -51,6 +52,8 @@ The following functions could be used with the ibox object:
 - **content_clear()** - clears the iBox content
 - **content_show()** - shows the content and hides the loader
 - **content_hide()** - hides the content and shows the loader
+- **content_async_set(url)** - gets content from an url and puts it in the ibox
+- **content_async_append(url)** - gets content from an url and **appends** it to the current content in the ibox
 ##### Other *static* Utility Functions
 - **isset(var)** - checks if a variable or object value exists (like in PHP)
 - **randomString(length)** - returns a random string with given length
@@ -65,3 +68,8 @@ The following functions could be used with the ibox object:
 
 **1.1**
 - fixed some errors and added content_hide() and content_show functions...
+
+**1.2**
+- fixed some erros
+- added async functions
+- added remove functions

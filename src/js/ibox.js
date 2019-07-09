@@ -28,6 +28,11 @@ class ibox {
     }
     }
 
+    //removes the dom elements from the page
+    remove() {
+        $("div.ibox.frame." + this.object_name).remove();
+    }
+
 //closes theiBox selected by iBox ID
     static closeIt(ibox_id) {
         ibox.scrollHandler(ibox_id, false);
@@ -107,6 +112,20 @@ class ibox {
     content_hide() {
         $("div.ibox.content." + this.object_name).hide();
         $("div.ibox.loader." + this.object_name).show();
+    }
+
+//sets ibox content from an url request
+    async content_async_set(url) {
+        const data = await fetch(url);
+        const txt = await data.text();
+        this.content_set(txt);
+    }
+
+//appends content from an url to the content
+    async content_async_append(url) {
+        const data = await fetch(url);
+        const txt = await data.text();
+        this.content_append(txt);
     }
 
 //checks if variable or object parameter exists, like in php
