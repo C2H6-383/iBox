@@ -23,9 +23,7 @@ class ibox {
         if (ibox.isset(options.content)) {
             this.content_set(options.content);
             this.content_show();
-
-
-    }
+        }
     }
 
     //removes the dom elements from the page
