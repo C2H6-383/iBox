@@ -52,8 +52,8 @@ The following functions could be used with the ibox object:
 - **content_clear()** - clears the iBox content
 - **content_show()** - shows the content and hides the loader
 - **content_hide()** - hides the content and shows the loader
-- **content_async_set(url)** - gets content from an url and puts it in the ibox
-- **content_async_append(url)** - gets content from an url and **appends** it to the current content in the ibox
+- **content_async_set(url)** - gets content from an url and puts it in the ibox and manages the visibility of the loading bar automatically
+- **content_async_append(url)** - gets content from an url and **appends** it to the current content in the ibox and manages the visibility of the loading bar automatically
 ##### Other *static* Utility Functions
 - **isset(var)** - checks if a variable or object value exists (like in PHP)
 - **randomString(length)** - returns a random string with given length
@@ -73,3 +73,9 @@ The following functions could be used with the ibox object:
 - fixed some erros
 - added async functions
 - added remove functions
+
+**2.0**
+- added minified files
+- new styles and animations
+- works with multiple iBoxes seamlessly
+- code commented
