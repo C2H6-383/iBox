@@ -1,6 +1,5 @@
 div.ibox.frame {
     z-index: 5000;
-
     position: fixed;
     top: 0;
     left: 0;
@@ -37,7 +36,7 @@ div.ibox.frame.hiding {
         opacity: 1;
     }
     100% {
-        background: rgba(35, 35, 35, 0.6);
+        background: rgba(35, 35, 35, 0.5);
     }
 }
 @-moz-keyframes show-ibox {
@@ -53,7 +52,7 @@ div.ibox.frame.hiding {
         opacity: 1;
     }
     100% {
-        background: rgba(35, 35, 35, 0.6);
+        background: rgba(35, 35, 35, 0.5);
     }
 }
 @-o-keyframes show-ibox {
@@ -69,7 +68,7 @@ div.ibox.frame.hiding {
         opacity: 1;
     }
     100% {
-        background: rgba(35, 35, 35, 0.6);
+        background: rgba(35, 35, 35, 0.5);
     }
 }
 @keyframes show-ibox {
@@ -85,7 +84,7 @@ div.ibox.frame.hiding {
         opacity: 1;
     }
     100% {
-        background: rgba(35, 35, 35, 0.6);
+        background: rgba(35, 35, 35, 0.5);
     }
 }
 
@@ -147,7 +146,7 @@ span.ibox.close {
     width: 40px;
     height: 40px;
     cursor: pointer;
-    padding: 5px;
+    padding: 1px;
     position: fixed;
     text-align: center;
     line-height: 40px;
@@ -216,10 +215,7 @@ div.ibox.content {
     border-radius: 6px;
     box-sizing: border-box;
     color:#000 !important;
-    border-radius: 40px;
-    -moz-box-shadow:    0px 0px 10px 10px rgba(0,0,0,0.4);
-    -webkit-box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.4);
-    box-shadow:         0px 0px 10px 10px rgba(0,0,0,0.4);
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 1150px) {

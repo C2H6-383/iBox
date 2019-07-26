@@ -35,7 +35,6 @@ class ibox {
             this.content_set(options.content);
             this.content_show();
         } else {
-            console.log("adofilnjsligfjspogjspodfg");
             $("div.ibox.frame." + this.object_name).attr("data-changed", "false");
         }
 
@@ -57,8 +56,8 @@ class ibox {
      */
     static async closeIt(ibox_id) {
         $("div.ibox.frame." + ibox_id)[0].classList.add("hiding");
-        ibox.scrollHandler(ibox_id, false);
         await ibox.sleep(500);
+        ibox.scrollHandler(ibox_id, false);
         $("div.ibox.frame." + ibox_id)[0].classList.remove("hiding");
         $("div.ibox.frame." + ibox_id).hide();
         document.querySelector("div.ibox.frame." + ibox_id).setAttribute("data-open", "false");
@@ -85,8 +84,8 @@ class ibox {
      */
     async close() {
         $("div.ibox.frame." + this.getId())[0].classList.add("hiding");
-        ibox.scrollHandler(this.getId(), false);
         await ibox.sleep(500);
+        ibox.scrollHandler(this.getId(), false);
         $("div.ibox.frame." + this.getId())[0].classList.remove("hiding");
         $("div.ibox.frame." + this.object_name).hide();
         document.querySelector("div.ibox.frame." + this.object_name).setAttribute("data-open", "false");
