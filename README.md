@@ -22,7 +22,7 @@ The following lines are showing, what you can do when you are creating your ibox
 1. pass an object with options:
 	- active (true/false) - should the ibox get opened on creation
 	- content (text/html) - puts the given content into the lightbox
-	
+
 You can pass the object like this:
 ```javascript
 var YourObjectName=new ibox({
@@ -42,9 +42,13 @@ The following functions could be used with the ibox object:
 - **close()** -  close the iBox
 - **closeLink()** - returns a function for an HTML onclick event that closes the iBox (for buttons or links in the iBox)
 - **remove()** - removes the dom structure of the ibox from the document
+- **allow_close(state)** - disables or enables the ability for the user to close the ibox
 ##### Loading Animation Functions
-- **loader_show()** - shows the loading animation 
+- **loader_show()** - shows the loading animation
 - **loader_hide()** - hides the loading animation
+#### Events
+- **event_listener_custom_add(event_name, callback_function)** - add a custom iBox event listener with callback function
+- **event_listener_custom_remove(event_name, callback_function)** - removes a custom iBox event listener, ONLY WORKS IF THE CALLBACK FUNCTION IS EXTERNAL (not like so: *function() {...}* )
 ##### Content Functions
 - **content_set(content)** - sets the iBox content
 - **content_append(content)** - appends to the iBox content
@@ -60,9 +64,15 @@ The following functions could be used with the ibox object:
 - **closeIt(ibox_id)** - closes an iBox with given ID (without having the created object)
 - **closeEvent(event, ibox_id)** - checks if the background frame of the ibox with given id was clicked and if so, it closes the ibox with given id. (attached to the frame of the ibox)
 
-------------
+## Custom Events
+- **onclosing** - runs *before* the iBox closes
+- **onclosed** -  runs *after* the iBox closed
+- **onopening** -  runs *before* the iBox opens
+- **onopened** -  runs *after* the iBox opened
+- **onasynccontentloading** - runs *before* async content is fetched and added to the iBox
+- **onasynccontentloaded** - runs *after* async content is fetched and added to the iBox
 
-## Release notes
+## Release Notes
 **1.0**
 - added general functions like open, close, set content...
 
@@ -75,7 +85,6 @@ The following functions could be used with the ibox object:
 - added remove functions
 
 **2.0**
-- added minified files
 - new styles and animations
 - works with multiple iBoxes seamlessly
 - code commented

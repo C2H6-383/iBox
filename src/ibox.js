@@ -62,12 +62,16 @@ class ibox {
     if ($("div.ibox.frame." + ibox_id).attr("data-allow-close") === "false") {
       return;
     }
+    var ev1 = new Event("onclosing");
+    var ev2 = new Event("onclosed");
+    document.querySelector("div.ibox.frame." + ibox_id).dispatchEvent(ev1);
     $("div.ibox.frame." + ibox_id)[0].classList.add("hiding");
     await ibox.sleep(500);
     ibox.scrollHandler(ibox_id, false);
     $("div.ibox.frame." + ibox_id)[0].classList.remove("hiding");
     $("div.ibox.frame." + ibox_id).hide();
     document.querySelector("div.ibox.frame." + ibox_id).setAttribute("data-open", "false");
+    document.querySelector("div.ibox.frame." + ibox_id).dispatchEvent(ev2);
   }
 
   /**
@@ -93,12 +97,16 @@ class ibox {
     if (this.allowClose === false) {
       return;
     }
+    var ev1 = new Event("onclosing");
+    var ev2 = new Event("onclosed");
+    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev1);
     $("div.ibox.frame." + this.getId())[0].classList.add("hiding");
     await ibox.sleep(500);
     ibox.scrollHandler(this.getId(), false);
     $("div.ibox.frame." + this.getId())[0].classList.remove("hiding");
     $("div.ibox.frame." + this.object_name).hide();
     document.querySelector("div.ibox.frame." + this.object_name).setAttribute("data-open", "false");
+    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev2);
   }
 
   /**
@@ -131,13 +139,40 @@ class ibox {
    * Opens the iBox
    */
   open() {
+    var ev1 = new Event("onopening");
+    var ev2 = new Event("onopened");
+    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev1);
     ibox.scrollHandler(this.object_name, true);
     $("div.ibox.frame." + this.object_name).show();
     $("div.ibox.frame." + this.object_name).attr("data-open", "true");
+    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev2);
   }
+
+  //###########################################################################################
+  //EVENTS
+  //###########################################################################################
+  /**
+   * Adds an custom event listener to the ibox
+   * @param {[string]} event_name        the name of the custom event
+   * @param {[function]} callback_function the callback function that should be run
+   */
+  event_listener_custom_add(event_name, callback_function) {
+    document.querySelector("div.ibox.frame." + this.getId()).addEventListener(event_name, callback_function);
+  }
+
+  /**
+   * removes an custom event listener from the ibox, ONLY WORKS WITH EXTERNAL FUNCTIONS, NOT function() {...}
+   * @param  {[string]} event_name        the custom event name
+   * @param  {[function]} callback_function the callback function
+   */
+  event_listener_custom_remove(event_name, callback_function) {
+    document.querySelector("div.ibox.frame." + this.getId()).removeEventListener(event_name, callback_function);
+  }
+
   //###########################################################################################
   //LOADER
   //###########################################################################################
+
   /**
    * shows the loading bar
    */
@@ -213,12 +248,16 @@ class ibox {
    * @param {string} url the url to the file to fetch
    */
   async content_async_set(url) {
+    var ev1 = new Event("onasynccontentloading");
+    var ev2 = new Event("onasynccontentloaded");
+    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev1);
     this.content_hide();
     const data = await fetch(url);
     const txt = await data.text();
     this.content_set(txt);
     $("div.ibox.frame." + this.object_name).attr("data-changed", "true");
     this.content_show();
+    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev2);
   }
 
   /**
@@ -226,12 +265,16 @@ class ibox {
    * @param {string} url the url to the file to fetch
    */
   async content_async_append(url) {
+    var ev1 = new Event("onasynccontentloading");
+    var ev2 = new Event("onasynccontentloaded");
+    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev1);
     this.content_hide();
     const data = await fetch(url);
     const txt = await data.text();
     this.content_append(txt);
     $("div.ibox.frame." + this.object_name).attr("data-changed", "true");
     this.content_show();
+    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev2);
   }
   //###########################################################################################
   //OTHER
