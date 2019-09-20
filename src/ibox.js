@@ -27,7 +27,7 @@ class ibox {
                 <div class="ibox spinner"></div>
             </div><div class="ibox content ${this.object_name}" data-id="${this.object_name}"></div>
             <div style="clear:both; width:0;height:0;"></div>
-            <span class="ibox copyright ${this.object_name}">iBox by Ethan Ziermann | <a href="https://github.com/C2H6-383/iBox" target="blank">GitHub</a></span>
+            <span class="ibox copyright ${this.object_name}"><small style="opacity: 0.5;">iBox by Ethan Ziermann | <a href="https://github.com/C2H6-383/iBox" target="blank">GitHub</a></small></span>
         </div>`
     );
 
@@ -153,8 +153,8 @@ class ibox {
   //###########################################################################################
   /**
    * Adds an custom event listener to the ibox
-   * @param {[string]} event_name        the name of the custom event
-   * @param {[function]} callback_function the callback function that should be run
+   * @param {string} event_name        the name of the custom event
+   * @param {function} callback_function the callback function that should be run
    */
   event_listener_custom_add(event_name, callback_function) {
     document.querySelector("div.ibox.frame." + this.getId()).addEventListener(event_name, callback_function);
@@ -162,8 +162,8 @@ class ibox {
 
   /**
    * removes an custom event listener from the ibox, ONLY WORKS WITH EXTERNAL FUNCTIONS, NOT function() {...}
-   * @param  {[string]} event_name        the custom event name
-   * @param  {[function]} callback_function the callback function
+   * @param  {string} event_name        the custom event name
+   * @param  {function} callback_function the callback function
    */
   event_listener_custom_remove(event_name, callback_function) {
     document.querySelector("div.ibox.frame." + this.getId()).removeEventListener(event_name, callback_function);

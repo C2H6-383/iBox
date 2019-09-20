@@ -88,3 +88,7 @@ The following functions could be used with the ibox object:
 - new styles and animations
 - works with multiple iBoxes seamlessly
 - code commented
+
+**2.1**
+- added custom events
+- controls the ability to close the iBox by the user
