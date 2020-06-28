@@ -1,5 +1,5 @@
 # **iBox**
-##### a small, multipurpose Modal Library for displaying dynamic content
+##### a multipurpose modal library for JavaScript
 
 ## Requirements
 - jQuery 3.4.1 or higher
