@@ -1,0 +1,134 @@
+$loader-color: #fff;
+
+.ibox {
+  &.frame {
+    z-index: 5000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: auto;
+    padding-top: 6%;
+    padding-bottom: 6%;
+    box-sizing: content-box !important;
+    color: #000;
+    background: rgba(0, 0, 0, 0.8);
+    @extend .ibox-display;
+  }
+
+  &.content {
+    display: block;
+    z-index: 5001;
+    width: min(1200px, 98vw);
+    background: #fff;
+    margin: 0 auto 6% auto !important;
+    min-height: 100%;
+    padding: 20px 40px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #000 !important;
+    @extend .ibox-display;
+  }
+
+  &.close {
+    background: #fff;
+    top: 40px;
+    right: 40px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    padding: 1px;
+    position: fixed;
+    text-align: center;
+    line-height: 40px;
+    font-size: 40px !important;
+    font-family: "Times New Roman", Times, serif !important;
+    color: #000;
+    border-radius: 50%;
+    @extend .ibox-display;
+  }
+
+  &.loader {
+    width: 150px;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    position: fixed;
+    transform: translateX(-50%) translateY(-50%);
+    @extend .ibox-display;
+
+    & > div {
+      width: 30px;
+      height: 30px;
+      background-color: $loader-color;
+
+      border-radius: 100%;
+      display: inline-block;
+      animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    }
+
+    &.visible {
+      visibility: visible !important;
+    }
+
+    .bounce1 {
+      animation-delay: -0.32s;
+    }
+
+    .bounce2 {
+      animation-delay: -0.16s;
+    }
+  }
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  div.ibox.close {
+    background: rgba(230, 230, 230, 0.8) !important;
+  }
+
+  div.ibox.content {
+    padding: 20px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  span.ibox.close:hover {
+    background: #adadad;
+    color: #fff;
+  }
+}
+
+@media screen and (max-width: 1240px) {
+  span.ibox.close {
+    background: rgb(184, 184, 184) !important;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+.ibox-display {
+  &.hidden:not(.visible),
+  &:not(.visible) {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0s ease 0.2s;
+  }
+
+  &.visible:not(.hidden) {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s ease, opacity 0.2s ease;
+  }
+}

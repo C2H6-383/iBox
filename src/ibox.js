@@ -1,302 +1,233 @@
-/**
- * A small JS class for creating html page modals
- * @author Ethan Ziermann <null@unconfigured.com>
- * @name iBOx
- * @version 2.0
- */
-class ibox {
+global.ibox = class {
+  constructor(ibox_id = null) {
+    if (ibox_id === null) {
+      this.object_name = "i" + ibox_utils.randomString(4) + "x";
 
-  //###########################################################################################
-  //CONSTRUCTION & REMOVAL
-  //###########################################################################################
-  /**
-   * Creates the default DOM structure for the iBox modal
-   * @param {object} options some additional start settings for the modal
-   */
-  constructor(options = {}) {
-    if (!ibox.isset(jQuery)) {
-      throw "jQuery is required to run iBox!";
-    }
-
-    this.object_name = "i" + ibox.randomString(4) + "i";
-    $("body").append(
-      `<div class="ibox frame ${this.object_name}" data-allow-close="true" data-id="${this.object_name}" data-changed="false" style="display:none" data-open="false" onclick="ibox.closeEvent(event,'${this.object_name}')">
-            <div style="display:none;" class="ibox scrollHandler ${this.object_name}" data-id="${this.object_name}" data-toTop=""></div>
-            <span class="ibox close ${this.object_name}" data-id="${this.object_name}" onclick="ibox.closeIt('${this.object_name}')">&times;</span>
-            <div class="ibox loader ${this.object_name}" data-id="${this.object_name}">
-                <div class="ibox spinner"></div>
-            </div><div class="ibox content ${this.object_name}" data-id="${this.object_name}"></div>
-            <div style="clear:both; width:0;height:0;"></div>
-            <span class="ibox copyright ${this.object_name}"><small style="opacity: 0.5;">iBox by Ethan Ziermann | <a href="https://github.com/C2H6-383/iBox" target="blank">GitHub</a></small></span>
-        </div>`
-    );
-
-    if (ibox.isset(options.content)) {
-      this.content_set(options.content);
-      this.content_show();
+      this.create();
     } else {
-      $("div.ibox.frame." + this.object_name).attr("data-changed", "false");
-    }
-
-    if (ibox.isset(options.active) && options.active) {
-      this.open();
+      this.object_name = ibox_id;
     }
   }
 
-  /**
-   * removes the DOM structure for this modal from the page (after this, you could delete the object)
-   */
+  create() {
+    if (document.querySelector(".ibox.frame." + this.object_name) != null) {
+      this.remove();
+    }
+    if (document.querySelector("body") == null) {
+      console.error(
+        "There is no body to add the iBox to. Please run the creation (or object instantiation) later, e.g. at the end of the body."
+      );
+      return;
+    }
+
+    document.querySelector("body").innerHTML += `
+    <div class="ibox frame ${this.object_name}" data-allow-close="true" data-content="false" data-open="false" onclick="(new ibox('${this.object_name}')).close(event)">
+        <div style="display:none" class="ibox scrollHandler ${this.object_name}" data-id="${this.object_name}" data-toTop=""></div>
+        <span class="ibox close ${this.object_name}" data-id="${this.object_name}" onclick="(new ibox('${this.object_name}')).close(event)">&times;</span>
+        <div class="ibox loader ${this.object_name}" data-id="${this.object_name}">
+            <div class="ibox bounce1"></div>
+            <div class="ibox bounce2"></div>
+            <div class="ibox bounce3"></div>
+        </div>
+        <div class="ibox content ${this.object_name}" data-id="${this.object_name}"></div>
+        <div style="clear:both; width:0;height:0;"></div>
+    </div>
+        `;
+
+    this.content_hide();
+    this.allow_close(true);
+  }
+
   remove() {
-    $("div.ibox.frame." + this.object_name).remove();
+    this.allow_close(true);
+    this.close();
+    this.get_dom().remove();
   }
 
-  //###########################################################################################
-  //OPEN, GETID AND CLOSE
-  //###########################################################################################
-
-  /**
-   * Closes an iBox without having the object, only the ibox ID (is used by the close button and by the 'closeLink' function)
-   * @param {string} ibox_id the ID for the ibox modal
-   */
-  static async closeIt(ibox_id) {
-    if ($("div.ibox.frame." + ibox_id).attr("data-allow-close") === "false") {
-      return;
+  scroll_handle(state) {
+    if (this.get_dom().dataset.changed === "true") {
+      this.get_dom().dataset.changed = "false";
+      this.get_dom().scrollTop = 0;
     }
-    var ev1 = new Event("onclosing");
-    var ev2 = new Event("onclosed");
-    document.querySelector("div.ibox.frame." + ibox_id).dispatchEvent(ev1);
-    $("div.ibox.frame." + ibox_id)[0].classList.add("hiding");
-    await ibox.sleep(500);
-    ibox.scrollHandler(ibox_id, false);
-    $("div.ibox.frame." + ibox_id)[0].classList.remove("hiding");
-    $("div.ibox.frame." + ibox_id).hide();
-    document.querySelector("div.ibox.frame." + ibox_id).setAttribute("data-open", "false");
-    document.querySelector("div.ibox.frame." + ibox_id).dispatchEvent(ev2);
-  }
-
-  /**
-   * Returns the iBox ID (used for closing and other modifications)
-   * @returns {String} the ID
-   */
-  getId() {
-    return this.object_name;
-  }
-
-  /**
-   * returns a function for an onclick event that closes the iBox
-   * @returns {String} the onclick event for closing this iBox
-   */
-  closeLink() {
-    return "ibox.closeIt('" + this.object_name + "')";
-  }
-
-  /**
-   * closes the iBox
-   */
-  async close() {
-    if (this.allowClose === false) {
-      return;
-    }
-    var ev1 = new Event("onclosing");
-    var ev2 = new Event("onclosed");
-    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev1);
-    $("div.ibox.frame." + this.getId())[0].classList.add("hiding");
-    await ibox.sleep(500);
-    ibox.scrollHandler(this.getId(), false);
-    $("div.ibox.frame." + this.getId())[0].classList.remove("hiding");
-    $("div.ibox.frame." + this.object_name).hide();
-    document.querySelector("div.ibox.frame." + this.object_name).setAttribute("data-open", "false");
-    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev2);
-  }
-
-  /**
-   * Used for closing the modal when user is clicking on the background
-   * @param {event} event the click event
-   * @param {string} id the ID of the iBox
-   */
-  static closeEvent(event, id) {
-    var e = event.target;
-    if (e === document.querySelector("div.ibox.frame." + id) && $("div.ibox.frame." + id).attr("data-open") === "true") {
-      ibox.closeIt(id);
-    }
-  }
-
-  /**
-   * Disables or enables the ability to close the iBox by the user (if disabled, the close button will hide)
-   * @param  {Boolean} state enable or disable close
-   */
-  allow_close(state) {
-    this.allowClose = state;
-    $("div.ibox.frame." + this.object_name).attr("data-allow-close", "" + state);
     if (state) {
-      $("span.ibox.close." + this.object_name).show();
+      //show
+      document.querySelector(
+        ".ibox.scrollHandler." + this.object_name
+      ).dataset.toTop = window.scrollY;
+      document.querySelector("body").style.overflowY = "hidden";
+      document.querySelector("body").style.marginTop =
+        (window.scrollY * -1).toString() + "px";
+      document.querySelector("body").style.paddingRight =
+        ibox_utils.getScrollbarWidth() + "px";
     } else {
-      $("span.ibox.close." + this.object_name).hide();
+      //hide
+      document.querySelector("body").style.overflowY = "auto";
+      document.querySelector("body").style.marginTop = "0px";
+      document.querySelector("body").style.paddingRight = "0px";
+      window.scroll(
+        window.scrollX,
+        document.querySelector(".ibox.scrollHandler." + this.object_name)
+          .dataset.toTop
+      );
     }
   }
 
-  /**
-   * Opens the iBox
-   */
+  close(event = null) {
+    if (event != null) {
+      if (
+        !(
+          this.get_dom().dataset.open == "true" &&
+          (event.target == this.get_dom() ||
+            event.target == this.get_dom().querySelector(".close"))
+        )
+      ) {
+        return;
+      }
+    }
+
+    if (!ibox_utils.closeable(this.object_name)) return;
+
+    this.fire("closing");
+    return this.display(false);
+  }
+
+  hide() {
+    return this.close();
+  }
+
+  allow_close(state) {
+    this.get_dom().dataset.allowClose = state.toString();
+    if (state) {
+      this.get_dom()
+        .querySelector(".close")
+        .classList.add("visible");
+    } else {
+      this.get_dom()
+        .querySelector(".close")
+        .classList.remove("visible");
+    }
+  }
+
   open() {
-    var ev1 = new Event("onopening");
-    var ev2 = new Event("onopened");
-    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev1);
-    ibox.scrollHandler(this.object_name, true);
-    $("div.ibox.frame." + this.object_name).show();
-    $("div.ibox.frame." + this.object_name).attr("data-open", "true");
-    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev2);
+    this.fire("opening");
+    return this.display(true);
   }
 
-  //###########################################################################################
-  //EVENTS
-  //###########################################################################################
-  /**
-   * Adds an custom event listener to the ibox
-   * @param {string} event_name        the name of the custom event
-   * @param {function} callback_function the callback function that should be run
-   */
-  event_listener_custom_add(event_name, callback_function) {
-    document.querySelector("div.ibox.frame." + this.getId()).addEventListener(event_name, callback_function);
+  show() {
+    return this.open();
   }
 
-  /**
-   * removes an custom event listener from the ibox, ONLY WORKS WITH EXTERNAL FUNCTIONS, NOT function() {...}
-   * @param  {string} event_name        the custom event name
-   * @param  {function} callback_function the callback function
-   */
-  event_listener_custom_remove(event_name, callback_function) {
-    document.querySelector("div.ibox.frame." + this.getId()).removeEventListener(event_name, callback_function);
-  }
+  display(state) {
+    if (!ibox_utils.closeable(this.object_name)) return;
+    this.scroll_handle(state);
 
-  //###########################################################################################
-  //LOADER
-  //###########################################################################################
+    this.get_dom().dataset.open = state.toString();
 
-  /**
-   * shows the loading bar
-   */
-  loader_show() {
-    $("div.ibox.loader." + this.object_name).show();
-  }
-
-  /**
-   * hides the loading bar
-   */
-  loader_hide() {
-    $("div.ibox.loader." + this.object_name).hide();
-  }
-  //###########################################################################################
-  //CONTENT
-  //###########################################################################################
-  /**
-   * sets the iBox content to a new value
-   * @param {string} content the new value
-   */
-  content_set(content) {
-    $("div.ibox.content." + this.object_name).html(content);
-    $("div.ibox.frame." + this.object_name).attr("data-changed", "true");
-  }
-
-  /**
-   * Appends to the iBox content some new content
-   * @param {string} content the content to append to the already existing content of the iBox
-   */
-  content_append(content) {
-    $("div.ibox.content." + this.object_name).append(content);
-    $("div.ibox.frame." + this.object_name).attr("data-changed", "true");
-  }
-
-  /**
-   * removes all content from the iBox
-   */
-  content_clear() {
-    $("div.ibox.content." + this.object_name).html("");
-    $("div.ibox.frame." + this.object_name).attr("data-changed", "true");
-  }
-
-  /**
-   * returns the iBox content
-   * @returns {string} the content of the iBox
-   */
-  content_get() {
-    return $("div.ibox.content." + this.object_name).html();
-  }
-
-  /**
-   * Shows the iBox content and hides the iBox loading bar
-   */
-  content_show() {
-    if ($("div.ibox.frame." + this.object_name).attr("data-changed") === "true") {
-      $("div.ibox.frame." + this.object_name).attr("data-changed", "false");
-      document.querySelector("div.ibox.frame." + this.object_name).scrollTop = 0;
-    }
-    $("div.ibox.content." + this.object_name).show();
-    $("div.ibox.loader." + this.object_name).hide();
-  }
-
-  /**
-   * Hides the iBox content and shows the iBox loading bar
-   */
-  content_hide() {
-    $("div.ibox.content." + this.object_name).hide();
-    $("div.ibox.loader." + this.object_name).show();
-  }
-
-  /**
-   * Fetchs some content from given url, gets the text of the response and set it as new iBox content
-   * @param {string} url the url to the file to fetch
-   */
-  async content_async_set(url) {
-    var ev1 = new Event("onasynccontentloading");
-    var ev2 = new Event("onasynccontentloaded");
-    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev1);
-    this.content_hide();
-    const data = await fetch(url);
-    const txt = await data.text();
-    this.content_set(txt);
-    $("div.ibox.frame." + this.object_name).attr("data-changed", "true");
-    this.content_show();
-    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev2);
-  }
-
-  /**
-   * Fetchs some content from given url, gets the text of the response and appends it to the content of the iBox
-   * @param {string} url the url to the file to fetch
-   */
-  async content_async_append(url) {
-    var ev1 = new Event("onasynccontentloading");
-    var ev2 = new Event("onasynccontentloaded");
-    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev1);
-    this.content_hide();
-    const data = await fetch(url);
-    const txt = await data.text();
-    this.content_append(txt);
-    $("div.ibox.frame." + this.object_name).attr("data-changed", "true");
-    this.content_show();
-    document.querySelector("div.ibox.frame." + this.getId()).dispatchEvent(ev2);
-  }
-  //###########################################################################################
-  //OTHER
-  //###########################################################################################
-  /**
-   * checks if the given variable is not undifined (set to an value)
-   * @param {mixed} x the variable to check
-   * @returns {Boolean} if the variable is set or not
-   */
-  static isset(x) {
-    if (typeof x !== "undefined") {
-      return true;
+    if (state) {
+      this.get_dom().classList.add("visible");
+      if (this.get_dom().dataset.content == "true") {
+        this.content_show();
+      }
     } else {
-      return false;
+      if (this.content_display()) {
+        this.get_dom().dataset.content = "true";
+      } else {
+        this.get_dom().dataset.content = "false";
+      }
+      this.get_dom().classList.remove("visible");
+      this.content_hide();
     }
   }
 
-  /**
-   * Creates a random string (uppercase and lowercase letters and numbers) with given length
-   * @param {int} length the length of the random string
-   * @returns {String} the random string
-   */
+  event_add(event_name, callback) {
+    return this.get_dom().addEventListener(event_name, callback);
+  }
+
+  content_set(text) {
+    return (this.get_dom().querySelector(".content").innerHTML = text);
+  }
+
+  content_get() {
+    return this.get_dom().querySelector(".content").innerHTML;
+  }
+
+  content_append(text) {
+    return (this.get_dom().querySelector(".content").innerHTML += text);
+  }
+
+  content_clear() {
+    return this.content_set("");
+  }
+
+  content_display(state = null) {
+    if (state == null) {
+      return this.get_dom()
+        .querySelector(".content")
+        .classList.contains("visible");
+    }
+    if (state) {
+      //show
+      this.get_dom()
+        .querySelector(".loader")
+        .classList.remove("visible");
+      this.get_dom()
+        .querySelector(".content")
+        .classList.add("visible");
+    } else {
+      //hide
+      this.get_dom()
+        .querySelector(".loader")
+        .classList.add("visible");
+      this.get_dom()
+        .querySelector(".content")
+        .classList.remove("visible");
+    }
+  }
+
+  content_show() {
+    return this.content_display(true);
+  }
+
+  content_hide() {
+    return this.content_display(false);
+  }
+
+  async content_async_set(url) {
+    this.content_hide();
+    const req = await fetch(url);
+    const txt = await req.text();
+    this.content_set(txt);
+    this.content_show();
+  }
+
+  async content_async_append(url) {
+    this.content_hide();
+    const req = await fetch(url);
+    const txt = await req.text();
+    this.content_append(txt);
+    this.content_show();
+  }
+
+  static get_instance(id) {
+    return new ibox(id);
+  }
+
+  get_dom() {
+    return document.querySelector(".ibox.frame." + this.object_name);
+  }
+
+  static event_fire(event_name, id) {
+    return document
+      .querySelector(".ibox.frame." + id)
+      .dispatchEvent(new Event(event_name));
+  }
+
+  fire(event_name) {
+    return ibox.event_fire(event_name, this.object_name);
+  }
+};
+
+global.ibox_utils = class {
   static randomString(length) {
     var result = "";
     var characters =
@@ -308,39 +239,44 @@ class ibox {
     return result;
   }
 
-  /**
-   * Waits specific time
-   * @param {int} ms the time to wait
-   * @returns {Promise} waits for the time
-   */
   static async sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  /**
-   * controls the scrollbar visibility of the iBox and the page body when showing and hiding the iBox
-   * @param {string} id the iBox id
-   * @param {bool} state whether it opens (true) or closes (false)
-   */
-  static scrollHandler(id, state) {
-    if ($("div.ibox.frame." + id).attr("data-changed") === "true") {
-      $("div.ibox.frame." + id).attr("data-changed", "false");
-      document.querySelector("div.ibox.frame." + id).scrollTop = 0;
-    }
-    if (state) {
-      $("div.ibox.scrollHandler." + id).data("toTop", $(window).scrollTop());
-      $("body").css("overflow-y", "hidden");
-      $("html").css("overflow-y", "hidden");
+  static isset(x) {
+    if (typeof x !== "undefined") {
+      return true;
     } else {
-      var alliBox = $("div.ibox.frame");
-      for (var i = 0; i < alliBox.length; i++) {
-        if (alliBox[i].dataset.id !== id && alliBox[i].dataset.open === "true") {
-          return;
-        }
-      }
-      $("body").css("overflow-y", "initial");
-      $("html").css("overflow-y", "initial");
-      $(window).scrollTop($("div.ibox.scrollHandler." + id).data("toTop"));
+      return false;
     }
   }
-}
+
+  static closeable(id) {
+    return (
+      document.querySelector(".ibox.frame." + id).dataset.allowClose == "true"
+    );
+  }
+
+  static getScrollbarWidth() {
+    // Creating invisible container
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.overflow = "scroll"; // forcing scrollbar to appear
+    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+    document.body.appendChild(outer);
+
+    // Creating inner element and placing it in the container
+    const inner = document.createElement("div");
+    outer.appendChild(inner);
+
+    // Calculating difference between container's full width and the child width
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+
+    // Removing temporary elements from the DOM
+    outer.parentNode.removeChild(outer);
+
+    return scrollbarWidth;
+  }
+};
+
+export default ibox;
