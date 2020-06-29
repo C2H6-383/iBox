@@ -2,7 +2,7 @@
   "name": "ibox",
   "version": "3.0.0",
   "description": "a multipurpose modal library for JavaScript ",
-  "main": "src/index.js",
+  "main": "src/ibox.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -40,7 +40,7 @@
   },
   "size-limit": [
     {
-      "path": "./src/index.js"
+      "path": "./src/ibox.js"
     }
   ]
 }

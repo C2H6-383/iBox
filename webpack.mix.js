@@ -1,4 +1,4 @@
 const mix = require('laravel-mix');
 
-mix.sass('src/index.scss', 'dist')
-   .js('src/index.js', 'dist');
+mix.sass('src/ibox.scss', 'dist')
+   .js('src/ibox.js', 'dist');
