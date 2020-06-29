@@ -1,2 +1,4 @@
 node_modules/
 tests/
+mix-manifest.json
+webpack.mix.js
