@@ -2,7 +2,7 @@
 ##### a multipurpose modal library for JavaScript
 show dynamic elements or other pages directly in your main page, without leaving it. Control almost any feature through the help of JavaScript
 
-## Browser Testing
+## Browser Compatibility
 | IE 11 | Edge | Chrome | Firefox | iOS Safari | macOS Safari |
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
 | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
