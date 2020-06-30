@@ -2,6 +2,17 @@
 ##### a multipurpose modal library for JavaScript
 show dynamic elements or other pages directly in your main page, without leaving it. Control almost any feature through the help of JavaScript
 
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![GitHub Release](https://img.shields.io/github/release/C2H6-383/iBox?style=flat)](https://github.com/C2H6-383/iBox/releases)  
+
+[![Issues](https://img.shields.io/github/issues-raw/C2H6-383/iBox?maxAge=25000)](https://github.com/C2H6-383/iBox/issues)  
+
+[![NPM Downloads](https://img.shields.io/npm/dt/ibox-modal?style=flat)](https://www.npmjs.com/package/ibox-modal)<br>
+[![NPM](https://nodei.co/npm/ibox-modal.png?downloads=true)](https://www.npmjs.com/package/ibox-modal)
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/C2H6-383/iBox.svg?style=flat)](https://github.com/C2H6-383/iBox)
+[![GitHub commit activity the past week, 4 weeks](https://img.shields.io/github/commit-activity/y/C2H6-383/iBox.svg?style=flat)](https://github.com/C2H6-383/iBox) 
+
 ## Browser Compatibility
 | IE 11 | Edge | Chrome | Firefox | iOS Safari | macOS Safari |
 | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |

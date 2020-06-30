@@ -34,11 +34,14 @@ global.ibox = class {
     </div>
         `;
 
+    this.fire("created");
+
     this.content_hide();
     this.allow_close(true);
   }
 
   remove() {
+    this.fire("destroy");
     this.allow_close(true);
     this.close();
     this.get_dom().remove();
@@ -84,10 +87,6 @@ global.ibox = class {
         return;
       }
     }
-
-    if (!ibox_utils.closeable(this.object_name)) return;
-
-    this.fire("closing");
     return this.display(false);
   }
 
@@ -109,7 +108,6 @@ global.ibox = class {
   }
 
   open() {
-    this.fire("opening");
     return this.display(true);
   }
 
@@ -118,17 +116,25 @@ global.ibox = class {
   }
 
   display(state) {
-    if (!ibox_utils.closeable(this.object_name)) return;
+    if (!ibox_utils.closeable(this.object_name) && state==false) {
+      this.fire("close_failed");
+      return;
+    }
+
     this.scroll_handle(state);
 
     this.get_dom().dataset.open = state.toString();
 
     if (state) {
+      //show
+      this.fire("open");
       this.get_dom().classList.add("visible");
       if (this.get_dom().dataset.content == "true") {
         this.content_show();
       }
     } else {
+      //hide
+      this.fire("close");
       if (this.content_display()) {
         this.get_dom().dataset.content = "true";
       } else {
@@ -167,6 +173,7 @@ global.ibox = class {
     }
     if (state) {
       //show
+      this.fire("content_show");
       this.get_dom()
         .querySelector(".loader")
         .classList.remove("visible");
@@ -175,6 +182,7 @@ global.ibox = class {
         .classList.add("visible");
     } else {
       //hide
+      this.fire("content_hide");
       this.get_dom()
         .querySelector(".loader")
         .classList.add("visible");
@@ -193,19 +201,23 @@ global.ibox = class {
   }
 
   async content_async_set(url) {
+    this.fire("content_asnyc_loading");
     this.content_hide();
     const req = await fetch(url);
     const txt = await req.text();
     this.content_set(txt);
     this.content_show();
+    this.fire("content_asnyc_loaded");
   }
 
   async content_async_append(url) {
+    this.fire("content_asnyc_loading");
     this.content_hide();
     const req = await fetch(url);
     const txt = await req.text();
     this.content_append(txt);
     this.content_show();
+    this.fire("content_asnyc_loaded");
   }
 
   static get_instance(id) {
