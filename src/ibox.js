@@ -21,7 +21,7 @@ global.ibox = class {
     }
 
     document.querySelector("body").innerHTML += `
-    <div class="ibox frame ${this.object_name}" data-allow-close="true" data-content="false" data-open="false" onclick="(new ibox('${this.object_name}')).close(event)">
+    <div class="ibox frame ${this.object_name}" data-allow-close="true" data-content="true" data-open="false" onclick="(new ibox('${this.object_name}')).close(event)">
         <div style="display:none" class="ibox scrollHandler ${this.object_name}" data-id="${this.object_name}" data-toTop=""></div>
         <span class="ibox close ${this.object_name}" data-id="${this.object_name}" onclick="(new ibox('${this.object_name}')).close(event)">&times;</span>
         <div class="ibox loader ${this.object_name}" data-id="${this.object_name}">
