@@ -1,6 +1,6 @@
 {
   "name": "ibox-modal",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "a multipurpose modal library for JavaScript ",
   "main": "src/ibox.js",
   "scripts": {
@@ -27,16 +27,16 @@
   },
   "homepage": "https://github.com/C2H6-383/iBox#readme",
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.5.2",
+    "@size-limit/preset-small-lib": "^4.6.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
-    "laravel-mix": "^5.0.4",
-    "resolve-url-loader": "^3.1.0",
-    "sass": "^1.26.9",
+    "laravel-mix": "^5.0.5",
+    "resolve-url-loader": "^3.1.1",
+    "sass": "^1.26.11",
     "sass-loader": "^8.0.2",
-    "size-limit": "^4.5.2",
+    "size-limit": "^4.6.0",
     "style-loader": "^1.2.1",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   },
   "size-limit": [
     {
