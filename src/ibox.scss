@@ -15,6 +15,14 @@ $loader-color: #fff;
     color: #000;
     background: rgba(0, 0, 0, 0.8);
     @extend .ibox-display;
+
+    &:not(.visible),
+    &.hidden {
+      .ibox.close,
+      .ibox.loader {
+        display: none;
+      }
+    }
   }
 
   &.content {
