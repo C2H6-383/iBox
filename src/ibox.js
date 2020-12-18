@@ -54,24 +54,16 @@ global.ibox = class {
     }
     if (state) {
       //show
-      document.querySelector(
-        ".ibox.scrollHandler." + this.object_name
-      ).dataset.toTop = window.scrollY;
+      document.querySelector(".ibox.scrollHandler." + this.object_name).dataset.toTop = window.scrollY;
       document.querySelector("body").style.overflowY = "hidden";
-      document.querySelector("body").style.marginTop =
-        (window.scrollY * -1).toString() + "px";
-      document.querySelector("body").style.paddingRight =
-        ibox_utils.getScrollbarWidth() + "px";
+      document.querySelector("body").style.marginTop = (window.scrollY * -1).toString() + "px";
+      document.querySelector("body").style.paddingRight = ibox_utils.getScrollbarWidth() + "px";
     } else {
       //hide
       document.querySelector("body").style.overflowY = "auto";
       document.querySelector("body").style.marginTop = "0px";
       document.querySelector("body").style.paddingRight = "0px";
-      window.scroll(
-        window.scrollX,
-        document.querySelector(".ibox.scrollHandler." + this.object_name)
-          .dataset.toTop
-      );
+      window.scroll(window.scrollX, document.querySelector(".ibox.scrollHandler." + this.object_name).dataset.toTop);
     }
   }
 
@@ -80,8 +72,7 @@ global.ibox = class {
       if (
         !(
           this.get_dom().dataset.open == "true" &&
-          (event.target == this.get_dom() ||
-            event.target == this.get_dom().querySelector(".close"))
+          (event.target == this.get_dom() || event.target == this.get_dom().querySelector(".close"))
         )
       ) {
         return;
@@ -231,9 +222,7 @@ global.ibox = class {
   }
 
   static event_fire(event_name, id) {
-    return document
-      .querySelector(".ibox.frame." + id)
-      .dispatchEvent(new Event(event_name));
+    return document.querySelector(".ibox.frame." + id).dispatchEvent(new Event(event_name));
   }
 
   fire(event_name) {
@@ -244,8 +233,7 @@ global.ibox = class {
 global.ibox_utils = class {
   static randomString(length) {
     var result = "";
-    var characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     var charactersLength = characters.length;
     for (var i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -266,9 +254,7 @@ global.ibox_utils = class {
   }
 
   static closeable(id) {
-    return (
-      document.querySelector(".ibox.frame." + id).dataset.allowClose == "true"
-    );
+    return document.querySelector(".ibox.frame." + id).dataset.allowClose == "true";
   }
 
   static getScrollbarWidth() {
@@ -299,15 +285,12 @@ global.ibox_utils = class {
     // Argument body_el is an element in the dom.
 
     function nodeName(elem, name) {
-      return (
-        elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase()
-      );
+      return elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase();
     }
 
     function evalScript(elem) {
       var data = elem.text || elem.textContent || elem.innerHTML || "",
-        head =
-          document.getElementsByTagName("head")[0] || document.documentElement,
+        head = document.getElementsByTagName("head")[0] || document.documentElement,
         script = document.createElement("script");
 
       script.type = "text/javascript";
@@ -332,10 +315,7 @@ global.ibox_utils = class {
 
     for (i = 0; children_nodes[i]; i++) {
       child = children_nodes[i];
-      if (
-        nodeName(child, "script") &&
-        (!child.type || child.type.toLowerCase() === "text/javascript")
-      ) {
+      if (nodeName(child, "script") && (!child.type || child.type.toLowerCase() === "text/javascript")) {
         scripts.push(child);
       }
     }

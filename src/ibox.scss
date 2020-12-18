@@ -19,7 +19,8 @@ $loader-color: #fff;
     &:not(.visible),
     &.hidden {
       .ibox.close,
-      .ibox.loader {
+      .ibox.loader,
+      .ibox.content {
         display: none;
       }
     }
