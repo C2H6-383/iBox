@@ -222,7 +222,7 @@ global.ibox = class {
   }
 
   static event_fire(event_name, id) {
-    return document.querySelector(".ibox.frame." + id).dispatchEvent(new CustomEvent(event_name, id));
+    return document.querySelector(".ibox.frame." + id).dispatchEvent(new CustomEvent(event_name, { target: new ibox(id) }));
   }
 
   fire(event_name) {
