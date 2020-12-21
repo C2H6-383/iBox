@@ -1,6 +1,6 @@
 {
   "name": "ibox-modal",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "description": "a multipurpose modal library for JavaScript ",
   "main": "src/ibox.js",
   "scripts": {
