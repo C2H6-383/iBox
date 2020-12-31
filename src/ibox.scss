@@ -38,6 +38,16 @@ $loader-color: #fff;
     box-sizing: border-box;
     color: #000 !important;
     @extend .ibox-display;
+
+    & > img:not(:first-child.ibox-head-img) {
+      max-width: 100%;
+    }
+
+    & > :first-child.ibox-head-img {
+      margin: -20px -40px 20px -40px;
+      width: calc(100% + 80px);
+      border-radius: 3px 3px 0 0;
+    }
   }
 
   &.close {
@@ -110,6 +120,11 @@ $loader-color: #fff;
 
   div.ibox.content {
     padding: 20px !important;
+
+    & > :first-child.ibox-head-img {
+      margin: -20px -20px 20px -20px !important;
+      width: calc(100% + 40px) !important;
+    }
   }
 }
 
