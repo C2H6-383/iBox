@@ -52,13 +52,13 @@ global.ibox = class {
       this.get_dom().dataset.changed = "false";
       this.get_dom().scrollTop = 0;
     }
-    if (state) {
-      //show
+    if (state && ibox_utils.ACTIVE_INSTANCES == 0) {
+      console.log("show, se first");
       document.querySelector(".ibox.scrollHandler." + this.object_name).dataset.toTop = window.scrollY;
       document.querySelector("body").style.overflowY = "hidden";
       document.querySelector("body").style.marginTop = (window.scrollY * -1).toString() + "px";
       document.querySelector("body").style.paddingRight = ibox_utils.getScrollbarWidth() + "px";
-    } else {
+    } else if (!state && ibox_utils.ACTIVE_INSTANCES == 1) {
       //hide
       document.querySelector("body").style.overflowY = "auto";
       document.querySelector("body").style.marginTop = "0px";
@@ -118,6 +118,7 @@ global.ibox = class {
 
     if (state) {
       //show
+      ibox_utils.ACTIVE_INSTANCES++;
       this.fire("open");
       this.get_dom().classList.add("visible");
       if (this.get_dom().dataset.content == "true") {
@@ -125,6 +126,7 @@ global.ibox = class {
       }
     } else {
       //hide
+      ibox_utils.ACTIVE_INSTANCES--;
       this.fire("close");
       if (this.content_display()) {
         this.get_dom().dataset.content = "true";
@@ -230,7 +232,15 @@ global.ibox = class {
   }
 };
 
+let _activeInstances = 0;
 global.ibox_utils = class {
+  static get ACTIVE_INSTANCES() {
+    return _activeInstances;
+  }
+  static set ACTIVE_INSTANCES(value) {
+    _activeInstances = value;
+  }
+
   static randomString(length) {
     var result = "";
     var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
