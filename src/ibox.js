@@ -53,7 +53,7 @@ global.ibox = class {
       this.get_dom().scrollTop = 0;
     }
     if (state && ibox_utils.ACTIVE_INSTANCES == 0) {
-      console.log("show, se first");
+      //show
       document.querySelector(".ibox.scrollHandler." + this.object_name).dataset.toTop = window.scrollY;
       document.querySelector("body").style.overflowY = "hidden";
       document.querySelector("body").style.marginTop = (window.scrollY * -1).toString() + "px";
