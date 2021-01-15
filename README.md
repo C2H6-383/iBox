@@ -34,5 +34,3 @@ Read more about how to use iBox in the [Wiki](https://github.com/C2H6-383/iBox/w
 
 If you found some bugs or if you want new features, create an [issue](https://github.com/C2H6-383/iBox/issues "issue") or [pull request](https://github.com/C2H6-383/iBox/pulls "pull request").
 I will review and work on these to make iBox better.
-
-### Thanks for reading. Have fun.
