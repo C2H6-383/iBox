@@ -1,4 +1,4 @@
-global.ibox = class {
+window.ibox = class {
   constructor(ibox_id = null) {
     if (ibox_id === null) {
       this.object_name = "i" + ibox_utils.randomString(4) + "x";
@@ -233,7 +233,7 @@ global.ibox = class {
 };
 
 let _activeInstances = 0;
-global.ibox_utils = class {
+window.ibox_utils = class {
   static get ACTIVE_INSTANCES() {
     return _activeInstances;
   }
